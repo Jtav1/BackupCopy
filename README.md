@@ -2,6 +2,8 @@
 
 BackupCopy is a simple powershell script leveraging 7zip to backup directories to a compressed archive.
 
+This is currently designed specifically for my personal use. 
+
 ## Getting Started
 
 BackupCopy.ps1 can be run from PowerShell with the provided -src directory, -dest director, and optional -log directory parameters. The -src parameter can include multiple comma-delimted directory paths. 
@@ -10,6 +12,11 @@ BackupCopy.ps1 can be run from PowerShell with the provided -src directory, -des
 ### Scheduling
 
 The BackupCopy.bat file can be used with the Windows Task Scheduler to automatically run BackupCopy. Edit the batch file to set the appropriate parameters.
+
+## Features TBD
+
+-Automatically delete backups (and optionally, logs) that are over a parameterized age
+-Option to incrementally backup instead of full backup
 
 ## Authors
 
