@@ -4,9 +4,9 @@ param (
 	[string]$log = ""
 )
 
-#Create a directory to store this backup in called YYYYMonDD-HHMM
-$dateStamp  = Get-Date -UFormat "%Y%b%d-%H%m"
-$monthStamp = Get-Date -UFormat "%Y%b"
+#Create a directory to store this backup named with a timestamp
+$dateStamp  = Get-Date -Format "yyyyMMMdd_HH-mm-ss"
+$monthStamp = Get-Date -Format "yyyyMMM"
 $backDir    = "$($dest)\$($dateStamp)"
 $logFile    = "$($log)\$($dateStamp)"
 $logDir     = "$($log)\$($monthStamp)"
