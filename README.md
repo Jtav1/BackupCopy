@@ -15,8 +15,8 @@ The BackupCopy.bat file can be used with the Windows Task Scheduler to automatic
 
 ## Features TBD
 
--Automatically delete backups (and optionally, logs) that are over a parameterized age
--Option to incrementally backup instead of full backup
+- Automatically delete backups (and optionally, logs) that are over a parameterized age
+- Option to incrementally backup instead of full backup
 
 ## Authors
 
