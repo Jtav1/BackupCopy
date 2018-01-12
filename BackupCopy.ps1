@@ -13,7 +13,13 @@ $logDir     = "$($log)\$($monthStamp)"
 
 #If a log filename was provided, transcribe everything into a file in that directory
 if ($log.length -gt 0){
-    Start-Transcript -path "$($logFile).txt" -append
+    $logging = $true
+} else {
+    $logging = $false
+}
+
+if($logging){
+        Start-Transcript -path "$($logFile).txt" -append
 }
 
 #Alias 7zip
@@ -31,8 +37,9 @@ for ($i=0; $i -lt $src.length; $i++){
 zip a -tzip "$($backDir).zip" $backDir
 Remove-Item $backDir -Recurse -Force
 
-Stop-Transcript
-
 #Move log file into zip
-zip a -tzip "$($logDir).zip" "$($logFile).txt"
-Remove-Item "$($logFile).txt" -Force
+if ($logging){
+    Stop-Transcript
+    zip a -tzip "$($logDir).zip" "$($logFile).txt"
+    Remove-Item "$($logFile).txt" -Force
+}
