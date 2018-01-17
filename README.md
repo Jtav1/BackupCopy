@@ -13,11 +13,15 @@ BackupCopy.ps1 can be run from PowerShell with the provided -src directory, -des
 
 The BackupCopy.bat file can be used with the Windows Task Scheduler to automatically run BackupCopy. Edit the batch file to set the appropriate parameters.
 
-## Features TBD
+## Features
 
-- Automatically delete backups (and optionally, logs) that are over a parameterized age
-- Option to incrementally backup instead of full backup
+- Automatically delete backups that are over a certain age
+- Incremental backups
+- Automatically zips backups and logs
+- TBD: Optionally Delete logs over a certain age
+- TBD: Parameter for deletion age for backups
+- TBD: Parameter for deletion age for log files
 
-## Authors
+## Author
 
 * **Justin Tavares**
