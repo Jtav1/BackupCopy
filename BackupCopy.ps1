@@ -28,14 +28,37 @@ set-alias zip "$env:ProgramFiles\7-Zip\7z.exe"
 
 New-Item $backDir -type directory
 
+#unzip existing backup, copy over newer files using robocopy, zip it back up
+$allZips = Get-ChildItem -Path $dest -filter "*.zip"
+$recent = $allZips | Sort-Object LastAccessTime -Descending | Select-Object -First 1 
+
+#If there is an existing backup, unzip it so we can avoid overwriting existing files
+if($recent){
+    $recentFolderPath = "$($dest)\$($recent.BaseName)"
+    zip x "$($recent.FullName)" -o"$dest"
+}
+
+#If any of the other zips areolder than 7 days old, delete them
+foreach($f in $allZips){
+    $today = Get-Date
+    if ($f.CreationTime -lt $today.AddDays(-7)){
+        Remove-Item $f.FullName
+    }
+}
+
 #Copy each provided directory
 for ($i=0; $i -lt $src.length; $i++){
-    Copy-Item -Path $src[$i] -Destination $backDir -recurse -Force -verbose  
+    robocopy $src[$i] $backDir/ /e /xo    
 }
 
 #Move new directory structure into zip
 zip a -tzip "$($backDir).zip" $backDir
+
+#Cleanup leftover directories
 Remove-Item $backDir -Recurse -Force
+if($recent){
+    Remove-Item $recentFolderPath -Recurse -Force
+}
 
 #Move log file into zip
 if ($logging){
