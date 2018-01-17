@@ -38,7 +38,7 @@ if($recent){
     zip x "$($recent.FullName)" -o"$dest"
 }
 
-#If any of the other zips areolder than 7 days old, delete them
+#If any of the other zips are older than 7 days old, delete them
 foreach($f in $allZips){
     $today = Get-Date
     if ($f.CreationTime -lt $today.AddDays(-7)){
@@ -48,7 +48,8 @@ foreach($f in $allZips){
 
 #Copy each provided directory
 for ($i=0; $i -lt $src.length; $i++){
-    robocopy $src[$i] $backDir/ /e /xo    
+    $folderName = Split-Path $src[$i] -Leaf
+    robocopy $src[$i] "$($backDir)\$($folderName)\" /e /xo    
 }
 
 #Move new directory structure into zip
